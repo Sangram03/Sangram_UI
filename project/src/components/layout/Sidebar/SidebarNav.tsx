@@ -3,7 +3,7 @@ import { Home, Layout, Box, Settings, Users, FileText } from 'lucide-react';
 import { SidebarNavItem } from './SidebarNavItem';
 
 interface NavItem {
-  icon: any;
+  icon: React.ElementType;
   label: string;
   id: string;
 }
@@ -18,11 +18,12 @@ const navItems: NavItem[] = [
 ];
 
 interface SidebarNavProps {
+  isOpen: boolean;
   activeItem: string;
   onItemClick: (id: string) => void;
 }
 
-export function SidebarNav({ activeItem, onItemClick }: SidebarNavProps) {
+export function SidebarNav({ isOpen, activeItem, onItemClick }: SidebarNavProps) {
   return (
     <nav className="flex-1">
       <ul className="space-y-1">
@@ -30,7 +31,7 @@ export function SidebarNav({ activeItem, onItemClick }: SidebarNavProps) {
           <SidebarNavItem
             key={item.id}
             icon={item.icon}
-            label={item.label}
+            label={isOpen ? item.label : ''}
             isActive={activeItem === item.id}
             onClick={() => onItemClick(item.id)}
           />

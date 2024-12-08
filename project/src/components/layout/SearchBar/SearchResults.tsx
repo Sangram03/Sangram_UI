@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, Box, Layout } from 'lucide-react';
+import { FileText, Box, Layout, AlertCircle } from 'lucide-react';
 
 interface SearchResult {
   id: string;
@@ -24,7 +24,7 @@ export function SearchResults({ results, isLoading, onSelect }: SearchResultsPro
   if (isLoading) {
     return (
       <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-        <div className="animate-pulse space-y-2 p-2">
+        <div className="animate-pulse space-y-2 p-4">
           {[1, 2, 3].map((i) => (
             <div key={i} className="h-10 bg-gray-100 dark:bg-gray-700 rounded" />
           ))}
@@ -34,7 +34,14 @@ export function SearchResults({ results, isLoading, onSelect }: SearchResultsPro
   }
 
   if (results.length === 0) {
-    return null;
+    return (
+      <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="p-4 flex items-center gap-3">
+          <AlertCircle className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+          <span className="text-sm text-gray-700 dark:text-gray-300">No results found</span>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -49,10 +56,13 @@ export function SearchResults({ results, isLoading, onSelect }: SearchResultsPro
                 className="w-full px-4 py-2 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
                 <Icon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <span className="text-sm text-gray-900 dark:text-gray-100">{result.title}</span>
-                <span className="text-xs text-gray-500 dark:text-gray-400 ml-auto">
-                  {result.type}
-                </span>
+                <div className="flex-1">
+                  <span className="text-sm font-medium text-gray-900 dark:text-gray-100 block">
+                    {result.title}
+                  </span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">{result.path}</span>
+                </div>
+                <span className="text-xs text-gray-500 dark:text-gray-400">{result.type}</span>
               </button>
             </li>
           );

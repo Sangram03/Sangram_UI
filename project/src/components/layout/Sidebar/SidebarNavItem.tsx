@@ -20,7 +20,7 @@ export function SidebarNavItem({ icon: Icon, label, isActive = false, onClick }:
           }`}
       >
         <Icon className="h-5 w-5" />
-        {label}
+        {label && <span>{label}</span>}
       </button>
     </li>
   );
